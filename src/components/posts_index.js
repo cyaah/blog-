@@ -28,3 +28,5 @@ function mapStateToProps(state) {
 
 
 export default connect(null, { fetchPosts: fetchPosts }) (PostsIndex) ;
+
+
