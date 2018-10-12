@@ -7,13 +7,15 @@ import { FETCH_POSTS, FETCH_POST } from "../actions";
 //Posts that we want to fetch is in action
 export default function(state = {}, action) {
   switch (action.type) {
-  
+    case DELETE_POST:
+    //Checks the state object and checks if it contains the post id and if it does not it loads the posts with id not there
+      return_.omit(state, action.payload);
     case FETCH_POST:
   // const post = action.payload.data;
   //    const newState = { ...state, };
   //    newState[post.id] = post;
   // return newState;
-  
+
   //take all the xisting posts we take them out of the state object and put it into this new object we return
   //We are not creating an array, whatever the variable of action.payload.data set it as a key which equals action.payload.data  
   //Essentially addind the new posts to the overall state of the new object
