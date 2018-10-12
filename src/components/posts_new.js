@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import {Field, reduxForm } from 'redux-form';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { createPosts } from '../actions';
 
 
 
@@ -30,9 +33,18 @@ class PostsNew extends Component {
 //the question mark above (ternary operator) checks if the field has been touched if truthy returns everything between the question mark and colon and if not then returns error as ''
   }
 
+
+//values is an object that contains the posts title, categories and content 
+//this funtion also helps post a new post up the api
 onSubmit (values) {
 	// this == component
 	console.log(values);
+     
+
+    //It automatically navigate back to root after posting, its connected to our action creator
+	this.props.createPosts(values, () => {
+		this.props.history.push('/');
+	});
 }
 
 
@@ -66,6 +78,8 @@ onSubmit (values) {
           component={this.renderField}
           />
           <button type="submit" className="btn btn-primary"> Submit </button>
+          <Link to="/" className = "btn btn-danger"> Cancel </Link>
+
       </form>  
   	);
   }
@@ -103,4 +117,6 @@ if(!values.content) {
 export default reduxForm({
 	validate: validate,
 	form: 'PostsNewForm'
-}) (PostsNew);
+})(
+  connect(null, { createPosts })(PostsNew)
+);
